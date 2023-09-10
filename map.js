@@ -17,6 +17,14 @@ const map = new mapboxgl.Map({
     maxBounds: bounds
 });
 
+// Create a default Marker and add it to the map.
+var popup = new mapboxgl.Popup()
+    .setHTML('<h3>Chandmari</h3><p>Coordinates:<br>(26.1836N,91.775E) </p>');
+const marker = new mapboxgl.Marker()
+// .setPopup('Chandmari')
+.setLngLat([91.775, 26.1836])
+.addTo(map);
+marker.setPopup(popup);
 map.on('load', () => {
 	map.addLayer({
         id: 'Flood',
