@@ -3,8 +3,8 @@
 // https://account.mapbox.com
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2MDUxMCIsImEiOiJjbGNoaG41czEwYmxuM3FtOWNvemVub3lkIn0.5hN1wrZNfw-7YmnNYKM2YQ';
 const bounds = [
-	[91.5,26.1], //NW boundary
-	[91.81,26.17] //SE boundary
+	[91.68,26.1], //NW boundary
+	[91.86,26.21] //SE boundary
 ];
 const map = new mapboxgl.Map({
     container: 'map',
@@ -23,9 +23,9 @@ map.on('load', () => {
         type: 'fill',
         source: {
             type: 'vector',
-            url: 'mapbox://dev0510.3qizm4je'
+            url: 'mapbox://dev0510.0jypj8dj'
         },
-        'source-layer': 'Flood-b6habr',
+        'source-layer': 'Flood-84dctc',
         paint: {
             'fill-color': 'rgb(25, 9, 116)',
             'fill-opacity': 0.5
@@ -37,9 +37,9 @@ map.on('load', () => {
         type: 'fill',
         source: {
             type: 'vector',
-            url: 'mapbox://dev0510.ah1saj44'
+            url: 'mapbox://dev0510.dtflotym'
         },
-        'source-layer': 'Water_Bodies-apbrap',
+        'source-layer': 'Water_Bodies-23d84z',
         paint: {
             'fill-color': 'rgb(30, 210, 241)',
             'fill-opacity': 0.5
@@ -51,9 +51,9 @@ map.on('load', () => {
         type: 'fill',
         source: {
             type: 'vector',
-            url: 'mapbox://dev0510.8myrsoy3'
+            url: 'mapbox://dev0510.4bykuqru'
         },
-        'source-layer': 'Buildings-ae0u60',
+        'source-layer': 'Buildings-6eb77p',
         paint: {
             'fill-color': 'rgb(244, 218, 73)',
             'fill-opacity': 0.5
@@ -61,13 +61,13 @@ map.on('load', () => {
     });
 
     map.addLayer({
-        id: 'Flooded-Buildings',
+        id: 'Flooded Buildings',
         type: 'fill',
         source: {
             type: 'vector',
-            url: 'mapbox://dev0510.ainrk11y'
+            url: 'mapbox://dev0510.bkvmxavy'
         },
-        'source-layer': 'fld_buildings-1b4fyp',
+        'source-layer': 'fld_blds-8x7tnq',
         paint: {
             'fill-color': 'rgb(162, 66, 6)',
             'fill-opacity': 0.5
@@ -78,12 +78,12 @@ map.on('load', () => {
 // After the last frame rendered before the map enters an "idle" state.
 map.on('idle', () => {
 	// If these two layers were not added to the map, abort
-	if (!map.getLayer('Flood') || !map.getLayer('Water') || !map.getLayer('Buildings') || !map.getLayer('Flooded-Buildings')) {
+	if (!map.getLayer('Flood') || !map.getLayer('Water') || !map.getLayer('Buildings') || !map.getLayer('Flooded Buildings')) {
 	return;
 }
  
 // Enumerate ids of the layers.
-const toggleableLayerIds = ['Flood', 'Water','Buildings','Flooded-Buildings'];
+const toggleableLayerIds = ['Flood', 'Water','Buildings','Flooded Buildings'];
  
 // Set up the corresponding toggle button for each layer.
 for (const id of toggleableLayerIds) {
@@ -93,55 +93,36 @@ for (const id of toggleableLayerIds) {
     }
  
     // Create a link.
-    const link = document.createElement('a');
+    const lay_name = document.createElement('span');
+    lay_name.innerHTML=id;
+    const switchlabel = document.createElement('label');
+    switchlabel.className='switch';
+    const link = document.createElement('input');
+    link.type = 'checkbox';
+    link.checked = true;
     link.id = id;
     link.href = '#';
-    link.textContent = id;
+    // link.textContent = id;
     link.className = 'active';
+    const roundedslider = document.createElement('span');
+    roundedslider.className = 'slider round';
     
-    // Create a slider for opacity
-    const opacitySlider = document.createElement('input');
-    opacitySlider.type = 'range';
-    opacitySlider.min = '0';
-    opacitySlider.max = '1';
-    opacitySlider.step = '0.1';
-    opacitySlider.value = 0.5; // Set the initial opacity value
-    opacitySlider.className = 'opacity-slider';
-
-    // Show or hide layer when the toggle is clicked.
-    link.onclick = function (e) {
-        const clickedLayer = this.textContent;
-        e.preventDefault();
-        e.stopPropagation();
-    
-        const visibility = map.getLayoutProperty(
-            clickedLayer,
-            'visibility'
-            );
-    
-        // Toggle layer visibility by changing the layout object's visibility property.
-        if (visibility === 'visible') {
-            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-            this.className = '';
-            opacitySlider.value = 0;
-        } else {
-            this.className = 'active';
-            map.setLayoutProperty(
-            clickedLayer,
-            'visibility',
-            'visible');
-            opacitySlider.value = 0.5;
-            }
-        };
-    
-    // Attach an event listener to the slider to update the layer opacity
-    opacitySlider.addEventListener('input', (event) => {
-        const newOpacity = parseFloat(event.target.value);
-        map.setPaintProperty(id, 'fill-opacity', newOpacity);
+    // Show or hide layer when the toggle switch state changes.
+    link.addEventListener('change', () => {
+        const visibility = link.checked ? 'visible' : 'none';
+        map.setLayoutProperty(id, 'visibility', visibility);
     });
-    
+
+    const lbreak = document.createElement('p');
 	const layers = document.getElementById('menu');
-		layers.appendChild(link);
-        layers.appendChild(opacitySlider);
+        layers.appendChild(lay_name);
+        lay_name.appendChild(switchlabel);
+        // layers.appendChild(switchlabel);
+		switchlabel.appendChild(link);
+        switchlabel.appendChild(roundedslider);
+        for (let i=0;i<5;i++){
+            layers.appendChild(lbreak);
+        }
+        // layers.appendChild(opacitySlider);
 	}
 });
