@@ -36,7 +36,7 @@ map.on('load', () => {
         'source-layer': 'Flood-84dctc',
         paint: {
             'fill-color': 'rgb(25, 9, 116)',
-            'fill-opacity': 0.5
+            'fill-opacity': 0.75
         }
     });
 
@@ -49,8 +49,8 @@ map.on('load', () => {
         },
         'source-layer': 'Buildings-6eb77p',
         paint: {
-            'fill-color': 'rgb(244, 218, 73)',
-            'fill-opacity': 0.5
+            'fill-color': 'rgb(162, 139, 9)',
+            'fill-opacity': 0.75
         }
     });
 
@@ -63,8 +63,8 @@ map.on('load', () => {
         },
         'source-layer': 'fld_blds-8x7tnq',
         paint: {
-            'fill-color': 'rgb(162, 66, 6)',
-            'fill-opacity': 0.5
+            'fill-color': 'rgb(209, 12, 12)',
+            'fill-opacity': 0.75
         }
     });
 });
