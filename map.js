@@ -55,6 +55,21 @@ map.on('load', () => {
     });
 
     map.addLayer({
+        id: 'Flooded Roads',
+        type: 'line',
+        source: {
+            type: 'vector',
+            url: 'mapbox://dev0510.2ka8uwxi'
+        },
+        'source-layer': 'fld_roads-d1bql7',
+        paint: {
+            'line-color': 'rgb(97, 42, 6)',
+            'line-width':2.5,
+            'line-opacity': 0.75
+        }
+    });
+
+    map.addLayer({
         id: 'Flooded Buildings',
         type: 'fill',
         source: {
@@ -72,12 +87,12 @@ map.on('load', () => {
 // After the last frame rendered before the map enters an "idle" state.
 map.on('idle', () => {
 	// If these two layers were not added to the map, abort
-	if (!map.getLayer('Flood') || !map.getLayer('Buildings') || !map.getLayer('Flooded Buildings')) {
+	if (!map.getLayer('Flood') || !map.getLayer('Flooded Roads') || !map.getLayer('Buildings') || !map.getLayer('Flooded Buildings')) {
 	return;
 }
  
 // Enumerate ids of the layers.
-const toggleableLayerIds = ['Flood', 'Buildings','Flooded Buildings'];
+const toggleableLayerIds = ['Flood', 'Flooded Roads', 'Buildings','Flooded Buildings'];
  
 // Set up the corresponding toggle button for each layer.
 for (const id of toggleableLayerIds) {
