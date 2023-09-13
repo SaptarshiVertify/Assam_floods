@@ -26,19 +26,19 @@ const marker = new mapboxgl.Marker()
 .addTo(map);
 marker.setPopup(popup);
 map.on('load', () => {
-	map.addLayer({
-        id: 'Flood',
-        type: 'fill',
-        source: {
-            type: 'vector',
-            url: 'mapbox://dev0510.0jypj8dj'
-        },
-        'source-layer': 'Flood-84dctc',
-        paint: {
-            'fill-color': 'rgb(25, 9, 116)',
-            'fill-opacity': 0.75
-        }
-    });
+	// map.addLayer({
+    //     id: 'Flood',
+    //     type: 'fill',
+    //     source: {
+    //         type: 'vector',
+    //         url: 'mapbox://dev0510.0jypj8dj'
+    //     },
+    //     'source-layer': 'Flood-84dctc',
+    //     paint: {
+    //         'fill-color': 'rgb(25, 9, 116)',
+    //         'fill-opacity': 0.75
+    //     }
+    // });
 
 	map.addLayer({
         id: 'Buildings',
@@ -87,12 +87,12 @@ map.on('load', () => {
 // After the last frame rendered before the map enters an "idle" state.
 map.on('idle', () => {
 	// If these two layers were not added to the map, abort
-	if (!map.getLayer('Flood') || !map.getLayer('Flooded Roads') || !map.getLayer('Buildings') || !map.getLayer('Flooded Buildings')) {
+	if ( !map.getLayer('Flooded Roads') || !map.getLayer('Buildings') || !map.getLayer('Flooded Buildings')) {
 	return;
 }
  
 // Enumerate ids of the layers.
-const toggleableLayerIds = ['Flood', 'Flooded Roads', 'Buildings','Flooded Buildings'];
+const toggleableLayerIds = [ 'Flooded Roads', 'Buildings','Flooded Buildings'];
  
 // Set up the corresponding toggle button for each layer.
 for (const id of toggleableLayerIds) {
