@@ -41,20 +41,6 @@ map.on('load', () => {
     });
 
 	map.addLayer({
-        id: 'Water',
-        type: 'fill',
-        source: {
-            type: 'vector',
-            url: 'mapbox://dev0510.dtflotym'
-        },
-        'source-layer': 'Water_Bodies-23d84z',
-        paint: {
-            'fill-color': 'rgb(30, 210, 241)',
-            'fill-opacity': 0.5
-        }
-    });
-
-	map.addLayer({
         id: 'Buildings',
         type: 'fill',
         source: {
@@ -86,12 +72,12 @@ map.on('load', () => {
 // After the last frame rendered before the map enters an "idle" state.
 map.on('idle', () => {
 	// If these two layers were not added to the map, abort
-	if (!map.getLayer('Flood') || !map.getLayer('Water') || !map.getLayer('Buildings') || !map.getLayer('Flooded Buildings')) {
+	if (!map.getLayer('Flood') || !map.getLayer('Buildings') || !map.getLayer('Flooded Buildings')) {
 	return;
 }
  
 // Enumerate ids of the layers.
-const toggleableLayerIds = ['Flood', 'Water','Buildings','Flooded Buildings'];
+const toggleableLayerIds = ['Flood', 'Buildings','Flooded Buildings'];
  
 // Set up the corresponding toggle button for each layer.
 for (const id of toggleableLayerIds) {
